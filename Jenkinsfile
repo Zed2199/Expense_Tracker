@@ -29,7 +29,7 @@ pipeline{
                     steps {
                         dir('expense-tracker-ui') {
                             sh 'npm install'
-                            sh 'npm build --configuration production'
+                            sh 'npm run build'
                         }
                     }
                 }
