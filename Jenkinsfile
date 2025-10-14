@@ -11,7 +11,7 @@ pipeline{
     stages{
         stage('Checkout') {
             steps{
-                git branch: 'master', credentialsId: 'Git token', url : 'https://github.com/Zed2199/Expense_Tracker.git'
+                git branch: 'main', credentialsId: 'Git token', url : 'https://github.com/Zed2199/Expense_Tracker.git'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline{
                     steps {
                         dir('expense-tracker-ui') {
                             sh 'npm install'
-                            sh 'npx ng build --configuration production'
+                            sh 'npm run build'
                         }
                     }
                 }
