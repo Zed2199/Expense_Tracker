@@ -29,7 +29,7 @@ pipeline{
                     steps {
                         dir('expense-tracker-ui') {
                             sh 'npm install'
-                            sh '/node_modules/.bin/ng build --configuration production'
+                            sh 'npx ng build --configuration production'
                         }
                     }
                 }
