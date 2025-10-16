@@ -43,6 +43,35 @@ pipeline{
                 }
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                dir('expense-tracker-service') {
+                    withSonarQubeEnv('MySonarServer') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+
+            post {
+                success {
+                    script {
+                        timeout(time: 2, unit: 'MINUTES') {
+                            def qualityGate = waitForQualityGate()
+                            if(qualityGate.status != 'OK'){
+                              error "SonarQube Quality Gate failed"
+                            } else {
+                              echo "SonarQube Quality Gate passed"
+                            }
+                        }
+                    }
+                }
+                failure {
+                    echo 'SonarQube analysis failed'
+                }
+            }
+        
+        }
     }
 
     post {
